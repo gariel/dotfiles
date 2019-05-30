@@ -1,0 +1,42 @@
+
+browsh_supporter = "I have shown my support for Browsh" # sorry but not yet
+startup-url = "http://github.com/gariel"
+
+# ---- default ----
+
+default_search_engine_base = "https://www.google.com/search?q="
+mobile_user_agent = "Mozilla/5.0 (Android 7.0; Mobile; rv:54.0) Gecko/58.0 Firefox/58.0"
+
+[browsh] # Browsh internals
+websocket-port = 3334
+
+[firefox]
+path = "firefox"
+profile = "browsh-default"
+use-existing = false
+with-gui = false
+
+[tty]
+small_pixel_frame_rate = 250
+
+[http-server]
+port = 4333
+bind = "0.0.0.0"
+
+render_delay = 100
+
+columns = 100
+rows = 30
+
+jpeg_compression = 0.9
+
+rate-limit = "100000000-M"
+
+blocked-domains = [
+]
+
+blocked-user-agents = [
+]
+
+header = ""
+footer = ""
