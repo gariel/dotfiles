@@ -7,11 +7,26 @@ import shutil
 import urllib.request
 
 
+def log(*args):
+    print(*args)
+
 def main():
+    log()
+    log("➡ 1 - Validdating")
     validate()
     home = os.environ["HOME"]
+    log("Home:", home)
+    log()
+    log("➡ 2 - Creating symlinks")
     create_links(home)
-    install_plug(home)
+    log()
+    log("➡ 3 - Installing nvim plug")
+    install_vim_plug(home)
+    log()
+    log("➡ 4 - Installing tmux TPM")
+    install_tmux_tpm(home)
+    log()
+    log("------------ done ")
 
 
 def validate():
@@ -20,16 +35,33 @@ def validate():
         raise Exception("nvim not installed.")
 
 
-def install_plug(home):
+def install_vim_plug(home):
     plugpath = os.path.join(home, ".local/share/nvim/site/autoload/")
     if not os.path.exists:
         os.makedirs(plugpath)
 
     plugfile = os.path.join(plugpath, "plug.vim")
+    if os.path.exists(plugfile):
+        log("skipping, plug already installed")
+        return
+
     url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
+    log("downloading plug")
     urllib.request.urlretrieve(url, plugfile)
 
+    log("installing pluguins")
     os.system("nvim +PlugInstall +qall")
+
+
+def install_tmux_tpm(home):
+    tpmpath = os.path.join(home, ".tmux/plugins/tpm")
+    if os.path.exists(tpmpath):
+        log("skipping, tpm already installed")
+        return
+
+    os.system("git clone https://github.com/tmux-plugins/tpm {}".format(tpmpath))
+    os.system("TMUX_PLUGIN_MANAGER_PATH={} {}".format(tpmpath, os.path.join(tpmpath, "bin/install_plugins")))
 
 
 def create_links(home):
