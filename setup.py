@@ -3,6 +3,7 @@
 
 
 import os
+import sys
 import shutil
 import urllib.request
 
@@ -15,33 +16,54 @@ IGNORE = [
 ]
 
 
-def log(*args):
-    print(*args)
+class Color:
+    Header = '\033[95m'
+    Blue = '\033[94m'
+    Green = '\033[92m'
+    Yellow = '\033[93m'
+    Red = '\033[91m'
+    Normal = '\033[0m'
+    Bold = '\033[1m'
+    Underline = '\033[4m'
+
+
+def log(*args, color=None):
+    text = " ".join(args)
+    if color:
+        print(color, text, Color.Normal)
+    else:
+        print(text)
 
 
 def main():
     log()
-    log("➡ 1 - Validdating")
+    title = lambda x: log(x, color=Color.Header)
+    title("➡ 1 - Validdating")
     validate()
     home = os.environ["HOME"]
     log("Home:", home)
     log()
-    log("➡ 2 - Creating symlinks")
+    title("➡ 2 - Creating symlinks")
     create_links(home)
     log()
-    log("➡ 3 - Installing nvim plug")
+    title("➡ 3 - Installing nvim plug")
     install_vim_plug(home)
     log()
-    log("➡ 4 - Installing tmux TPM")
+    title("➡ 4 - Installing tmux TPM")
     install_tmux_tpm(home)
     log()
     log("------------ done ")
 
 
 def validate():
-    out = shutil.which("nvim")
-    if not out:
-        raise Exception("nvim not installed.")
+    def check(command):
+        out = shutil.which(command)
+        if not out:
+            log(f"{command} not installed.", color=Color.Red)
+            sys.exit(1)
+
+    check("nvim")
+    check("tmux")
 
 
 def install_vim_plug(home):
@@ -51,7 +73,7 @@ def install_vim_plug(home):
 
     plugfile = os.path.join(plugpath, "plug.vim")
     if os.path.exists(plugfile):
-        log("skipping, plug already installed")
+        log("skipping, plug already installed", color=Color.Red)
         return
 
     url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -66,7 +88,7 @@ def install_vim_plug(home):
 def install_tmux_tpm(home):
     tpmpath = os.path.join(home, ".tmux/plugins/tpm")
     if os.path.exists(tpmpath):
-        log("skipping, tpm already installed")
+        log("skipping, tpm already installed", color=Color.Red)
         return
 
     os.system("git clone https://github.com/tmux-plugins/tpm {}".format(tpmpath))
@@ -94,7 +116,8 @@ def create_links(home):
             else:
                 os.remove(destination)
 
-        print("{} ➡ {}".format(orig.ljust(width), destination))
+        log(f"{Color.Blue}{orig.ljust(width)}{Color.Yellow} ➡"\
+            f" {Color.Green}{destination}{Color.Normal}")
         os.symlink(source, destination)
 
 

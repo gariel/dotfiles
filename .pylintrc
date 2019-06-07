@@ -10,9 +10,10 @@
 # W0702 No exception's type specified Used when an except clause doesn't specify exceptions type to catch.
 # R0201 Method could be a function
 # W0614 Unused import XYZ from wildcard import
+# R0903 Too few public methods
 # R0914 Too many local variables
 # R0912 Too many branches
 # R0915 Too many statements
 # R0913 Too many arguments
 # R0904 Too many public methods
-disable=C0111
+disable=C0111,R0903
