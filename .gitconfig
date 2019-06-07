@@ -1,0 +1,9 @@
+[user]
+	name = Gabriel Sant' Ana Pereira
+	email = gariel@ymail.com
+
+[core]
+	editor = nvim
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
