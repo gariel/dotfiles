@@ -2,6 +2,7 @@
 set nu
 set expandtab
 set list
+set hidden
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -59,19 +60,18 @@ inoremap <A-[> :bprev<CR>
 
 nnoremap <C-w> :bp\|bd #<CR>
 inoremap <C-w> :q<CR>
-nnoremap <C-S-f> :CtrlSF 
 
 noremap <C-J> <C-W><C-J>
-inoremap <C-J> <C-W><C-J>
+inoremap <C-J> <Esc><C-W><C-J>
 
 noremap <C-K> <C-W><C-K>
-inoremap <C-K> <C-W><C-K>
+inoremap <C-K> <Esc><C-W><C-K>
 
 noremap <C-L> <C-W><C-L>
-inoremap <C-L> <C-W><C-L>
+inoremap <C-L> <Esc><C-W><C-L>
 
 noremap <C-H> <C-W><C-H>
-inoremap <C-H> <C-W><C-H>
+inoremap <C-H> <Esc><C-W><C-H>
 
 noremap <C-S-Up> :m-2<CR>
 noremap <C-S-Down> :m+<CR>
@@ -79,6 +79,15 @@ inoremap <C-S-Up> <Esc>:m-2<CR>
 inoremap <C-S-Down> <Esc>:m+<CR>
 
 noremap <leader>= :set list!<CR>
+
+"CtrlSF
+nmap <C-S-f> <Plug>CtrlSFCwordPath
+imap <C-S-f> <Plug>CtrlSFCwordPath
+vmap <C-S-f> <Plug>CtrlSFVwordPath
+map <leader>f :CtrlSFToggle<CR>
+let g:ctrlsf_auto_focus = {"at": "start"}
+"let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_search_mode = 'async'
 
 " statusline
 set statusline+=%#warningmsg#
@@ -90,10 +99,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
-let g:syntastic_go_checkers = ['go', 'gofmt']
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_aggregate_errors = 1
+let g:syntastic_go_checkers = ['go', 'golint', 'govet', 'gometalinter']
+let g:syntastic_go_gometalinter_args = ['--disable-all', '--enable=errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 
 " Python
@@ -132,9 +142,9 @@ au FileType go nmap <F12> :GoDef<CR>
 au FileType go nmap <C-S-F12> :GoDefpop<CR>
 au FileType go nmap <C-F12> :GoImplements<CR>
 au FileType go nmap <S-F12> :GoReferrers<CR>
+"au FileType go silent exe GoGuruScope current_package/...
 
-
-" Comenter
+"Comenter
 let g:NERDCommentEmptyLines = 1
 nnoremap <C-/> :NERDComToggleComment<CR>
 inoremap <C-/> :NERDComToggleComment<CR>
