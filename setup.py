@@ -7,8 +7,17 @@ import shutil
 import urllib.request
 
 
+IGNORE = [
+    __file__,
+    ".git",
+    "README.md",
+    "colors.sh"
+]
+
+
 def log(*args):
     print(*args)
+
 
 def main():
     log()
@@ -61,12 +70,14 @@ def install_tmux_tpm(home):
         return
 
     os.system("git clone https://github.com/tmux-plugins/tpm {}".format(tpmpath))
-    os.system("TMUX_PLUGIN_MANAGER_PATH={} {}".format(tpmpath, os.path.join(tpmpath, "bin/install_plugins")))
+    os.system("TMUX_PLUGIN_MANAGER_PATH={} {}"
+              .format(tpmpath, os.path.join(tpmpath, "bin/install_plugins")))
 
 
 def create_links(home):
     dotfilesdir = os.path.abspath(".")
-    configs = [(f, f.replace("_", "/")) for f in os.listdir(".") if f != __file__]
+    configs = [(f, f.replace("_", "/")) for f in os.listdir(".") if not f in IGNORE]
+    width = max([len(c[0]) for c in configs])
 
     for orig, dest in configs:
         source = os.path.join(dotfilesdir, orig)
@@ -80,10 +91,10 @@ def create_links(home):
                 bkp = "{}.bkp".format(destination)
                 if not os.path.exists(bkp):
                     os.rename(destination, bkp)
+            else:
+                os.remove(destination)
 
-            os.remove(destination)
-
-        print("{} ➡ {}".format(source, destination))
+        print("{} ➡ {}".format(orig.ljust(width), destination))
         os.symlink(source, destination)
 
 
