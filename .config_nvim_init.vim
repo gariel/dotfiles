@@ -3,6 +3,11 @@ set nu
 set expandtab
 set list
 set hidden
+set incsearch
+set hlsearch
+set ignorecase
+set autoread
+set ttyfast
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -21,14 +26,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ap/vim-buftabline'
 Plug 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-go', { 'do': 'make' }
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
@@ -36,12 +35,11 @@ call plug#end()
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-function! Multiple_cursors_before()
-    let b:deoplete_disable_auto_complete = 1
-endfunction
-function! Multiple_cursors_after()
-    let b:deoplete_disable_auto_complete = 0
-endfunction
+let g:deoplete#disable_auto_complete = 1
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#source_importer = 1
+set completeopt=menu,noinsert
+inoremap <expr> <C-n>  deoplete#mappings#manual_complete()
 
 " NERDTree
 autocmd StdinReadPre * let s:std_in=1
@@ -135,6 +133,7 @@ let g:go_auto_type_info = 1
 let g:go_snippet_engine = "neosnippet"
 let g:go_fmt_command = "goimports"
 let g:go_auto_sameids = 1
+let g:go_gocode_propose_sourcec=0
 
 au FileType go nmap <leader>t :GoTest<CR>
 au FileType go nmap <leader>r :GoRename<CR>

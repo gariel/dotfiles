@@ -1,10 +1,17 @@
-#/bin/env python
+#!/bin/env python
 
-from datetime import datetime
+# from datetime import datetime
+import time
 from subprocess import Popen, PIPE
 
 
-def run(l):
+AD = [
+    " ~ Spotify",
+    " ~ Advertisement"
+]
+
+
+def run(*l):
     proc = Popen(l, stdout=PIPE, stderr=PIPE)
     out, _ = proc.communicate()
     return out.decode("utf-8").replace('\n', '')
@@ -15,16 +22,22 @@ def outs(sepn, *items):
 
 
 def main():
-    music = run([
+    music = run(
         'playerctl',
         '--player=spotify',
         'metadata',
         '--format',
-        #'▶️ {{ artist }} ~ {{ title }}'
+        # '▶️ {{ artist }} ~ {{ title }}'
         '{{ artist }} ~ {{ title }}'
-    ])
-    #now = datetime.now().strftime("%H : %M  -  [ %d / %m / %Y ]")
-    #return outs(2, now, music)
+    )
+
+    if music in AD:
+        run("playerctl", "--player=spotify", "next")
+        music = ""
+        time.sleep(1)
+
+    # now = datetime.now().strftime("%H : %M  -  [ %d / %m / %Y ]")
+    # return outs(2, now, music)
     return outs(2, music)
 
 
