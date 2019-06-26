@@ -19,5 +19,5 @@ export EDITOR=nvim
 export GOPATH=/work/go
 
 # extra
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
 alias tempo='curl http://wttr.in/Blumenau --header "Accept-Language: pt-br"'
