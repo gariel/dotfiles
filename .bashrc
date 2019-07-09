@@ -9,6 +9,7 @@ xmodmap -e "keycode 115 = Next" # end -> page down
 alias ls='ls --color'
 alias dcup='docker-compose up'
 alias dc='docker-compose'
+alias e='source env/bin/activate'
 
 alias vim=nvim
 alias vi=nvim
@@ -19,5 +20,5 @@ export EDITOR=nvim
 export GOPATH=/work/go
 
 # extra
-# source /usr/share/nvm/init-nvm.sh
+source /usr/share/nvm/init-nvm.sh
 alias tempo='curl http://wttr.in/Blumenau --header "Accept-Language: pt-br"'
