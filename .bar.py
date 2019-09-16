@@ -1,6 +1,6 @@
 #!/bin/env python
 
-# from datetime import datetime
+from datetime import datetime
 import time
 from subprocess import Popen, PIPE
 
@@ -36,9 +36,10 @@ def main():
         music = ""
         time.sleep(1)
 
-    # now = datetime.now().strftime("%H : %M  -  [ %d / %m / %Y ]")
+    now = datetime.now().strftime("%H : %M  -  [ %d / %m / %Y ]")
+    return outs(10, music, now)
     # return outs(2, now, music)
-    return outs(2, music)
+    # return outs(2, music)
 
 
 if __name__ == '__main__':
