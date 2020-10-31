@@ -24,7 +24,7 @@ def outs(sepn, *items):
 def main():
     music = run(
         'playerctl',
-        '--player=spotify',
+        #'--player=spotify',
         'metadata',
         '--format',
         # '▶️ {{ artist }} ~ {{ title }}'
