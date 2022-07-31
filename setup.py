@@ -68,7 +68,7 @@ def validate():
 
 def install_vim_plug(home):
     plugpath = os.path.join(home, ".local/share/nvim/site/autoload/")
-    if not os.path.exists:
+    if not os.path.exists(plugpath):
         os.makedirs(plugpath)
 
     plugfile = os.path.join(plugpath, "plug.vim")
