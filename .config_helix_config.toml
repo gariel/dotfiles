@@ -1,0 +1,60 @@
+theme = "dracula_at_night"
+
+[editor]
+line-number = "relative"
+mouse = true
+true-color = true
+bufferline = "always"
+color-modes = true
+auto-completion = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name"]
+
+[editor.indent-guides]
+render = true
+character = "⸽"
+skip-levels = 1
+
+[keys.normal]
+C-s = ":w"
+C-S-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+C-S-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+A-pageup = "goto_previous_buffer"
+A-pagedown = "goto_next_buffer"
+C-n = ":new"
+C-w = ":buffer-close"
+C-S-w = ":buffer-close!"
+C-d = ["move_prev_word_start", "move_next_word_end", "search_selection", "select_mode"]
+"A-[" = "goto_previous_buffer"
+"A-]" = "goto_next_buffer"
+"[" = { "[" = "goto_previous_buffer" }
+"]" = { "]" = "goto_next_buffer" }
+"A-1" = ":sh exa --tree --icons -F --git --git-ignore"
+
+[keys.select]
+C-S-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+C-S-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+A-pageup = "goto_previous_buffer"
+A-pagedown = "goto_next_buffer"
+C-s = ["normal_mode", ":w"]
+C-d = ["search_selection", "extend_search_next"]
+
+[keys.insert]
+C-s = ["normal_mode", ":w"]
+C-space = "completion"
+C-S-k = "hover"
+C-S-up = ["normal_mode", "extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+C-S-down = ["normal_mode", "extend_to_line_bounds", "delete_selection", "paste_after"]
+A-pageup = "goto_previous_buffer"
+A-pagedown = "goto_next_buffer"
+C-d = ["move_prev_word_start", "move_next_word_end", "search_selection", "select_mode"]

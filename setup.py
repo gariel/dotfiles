@@ -46,12 +46,12 @@ def main():
     title("➡ 2 - Creating symlinks")
     create_links(home)
     log()
-    title("➡ 3 - Installing nvim plug")
-    install_vim_plug(home)
-    log()
-    title("➡ 4 - Installing tmux TPM")
-    install_tmux_tpm(home)
-    log()
+    #title("➡ 3 - Installing nvim plug")
+    #install_vim_plug(home)
+    #log()
+    #title("➡ 4 - Installing tmux TPM")
+    #install_tmux_tpm(home)
+    #log()
     log("------------ done ")
 
 
@@ -104,6 +104,10 @@ def create_links(home):
     for orig, dest in configs:
         source = os.path.join(dotfilesdir, orig)
         destination = os.path.join(home, dest)
+
+        vl = input(f"Create '{destination}?[y/N]'")
+        if vl.lower() != "y":
+            continue
 
         destpath = os.path.dirname(destination)
         os.makedirs(destpath, exist_ok=True)
