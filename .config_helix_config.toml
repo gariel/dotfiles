@@ -1,4 +1,4 @@
-theme = "dracula_at_night"
+theme = "aaa"
 
 [editor]
 line-number = "relative"
@@ -27,19 +27,24 @@ skip-levels = 1
 
 [keys.normal]
 C-s = ":w"
+C-x = ["extend_to_line_bounds", "delete_selection"]
 C-S-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 C-S-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 A-pageup = "goto_previous_buffer"
 A-pagedown = "goto_next_buffer"
 C-n = ":new"
 C-w = ":buffer-close"
-C-S-w = ":buffer-close!"
+C-A-w = ":buffer-close!"
 C-d = ["move_prev_word_start", "move_next_word_end", "search_selection", "select_mode"]
 "A-[" = "goto_previous_buffer"
 "A-]" = "goto_next_buffer"
 "[" = { "[" = "goto_previous_buffer" }
 "]" = { "]" = "goto_next_buffer" }
 "A-1" = ":sh exa --tree --icons -F --git --git-ignore"
+"m" = { "c" = ["move_prev_word_start", "move_next_word_start", "delete_selection", "insert_mode"]}
+"S-home" = ["select_mode", "goto_line_start", "normal_mode"]
+"S-end" = ["select_mode", "goto_line_end", "normal_mode"]
+"del" = ["delete_selection", "insert_mode"]
 
 [keys.select]
 C-S-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
@@ -48,6 +53,7 @@ A-pageup = "goto_previous_buffer"
 A-pagedown = "goto_next_buffer"
 C-s = ["normal_mode", ":w"]
 C-d = ["search_selection", "extend_search_next"]
+"del" = ["delete_selection", "insert_mode"]
 
 [keys.insert]
 C-s = ["normal_mode", ":w"]
@@ -58,3 +64,5 @@ C-S-down = ["normal_mode", "extend_to_line_bounds", "delete_selection", "paste_a
 A-pageup = "goto_previous_buffer"
 A-pagedown = "goto_next_buffer"
 C-d = ["move_prev_word_start", "move_next_word_end", "search_selection", "select_mode"]
+"S-home" = ["select_mode", "goto_line_start", "normal_mode"]
+"S-end" = ["select_mode", "goto_line_end", "normal_mode"]
